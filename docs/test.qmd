@@ -1,0 +1,29 @@
+---
+title: "Quarto with Python"
+---
+
+# Quarto Markdown
+
+Write your docs in Quarto Markdown and get beautiful output.
+
+```{python}
+import sys
+for i in range(5):
+    print(f"Item {i}")
+1 + 1
+```
+
+## Make a plot
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+plt.plot(x, y)
+plt.title("Sine Wave")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.show()
+```
+

@@ -1,0 +1,15 @@
+site_name: Quarto Markdown
+site_dir: site
+
+theme: material
+
+plugins:
+- mkdocs_quarto
+
+markdown_extensions:
+- pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascript/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

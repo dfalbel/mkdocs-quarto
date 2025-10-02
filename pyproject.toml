@@ -1,0 +1,43 @@
+[project]
+name = "markdown-quarto"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Daniel Falbel", email = "dfalbel@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "markdown>=3.9",
+    "matplotlib>=3.10.6",
+    "mkdocs>=1.6.1",
+    "quarto>=0.1.0",
+]
+
+[project.entry-points."markdown.extensions"]
+markdown_quarto = "markdown_quarto.extension:QuartoExtension"
+
+[project.entry-points."mkdocs.plugins"]
+mkdocs_quarto = "markdown_quarto.mkdocs:QuartoPlugin"
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.9"]
+build-backend = "uv_build"
+
+[project.optional-dependencies]
+dev = [
+    "taskipy>=1.14.1",
+    "ruff>=0.13.2",
+]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.21",
+    "pandas>=2.3.3",
+]
+test = [
+    "pytest>=8.4.2",
+]
+
+[tool.taskipy.tasks]
+tests = "pytest tests"
+format = "ruff format src tests"
