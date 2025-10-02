@@ -13,7 +13,7 @@ import subprocess
 
 
 class QuartoPluginConfig(Config):
-    foo = config_options.Type(str, default='a default value')
+    foo = config_options.Type(str, default="a default value")
 
 
 class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
@@ -64,7 +64,7 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
                     destination = Path(config["site_dir"]) / relative_path
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     destination.write_bytes(item.read_bytes())
-    
+
                     # This is a bit hacky since we already copied the files to the site_dir.
                     # But makes the warnings about missing links disapperar.
                     files.append(
@@ -81,6 +81,7 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
 
 def _is_quarto_page(uri: str) -> bool:
     return uri.endswith(".qmd") or uri.endswith(".ipynb")
+
 
 def _quarto_convert(src_uri: str) -> str:
     """
@@ -100,7 +101,7 @@ def _quarto_convert(src_uri: str) -> str:
         try:
             os.chdir(tmpdir_path)
 
-            args = ["convert", input_path.name, "--output", output_path.name]            
+            args = ["convert", input_path.name, "--output", output_path.name]
             process = subprocess.Popen([quarto.quarto.find_quarto()] + args)
             process.wait()
         finally:
@@ -109,5 +110,3 @@ def _quarto_convert(src_uri: str) -> str:
         markdown = output_path.read_text(encoding="utf-8")
         print(markdown)
         return markdown
-
-
