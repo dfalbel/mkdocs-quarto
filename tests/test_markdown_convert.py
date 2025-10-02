@@ -1,6 +1,6 @@
 from markdown import Markdown
 
-from markdown_quarto.extension import QuartoExtension, quarto_render_markdown
+from mkdocs_quarto.extension import QuartoExtension, quarto_render_markdown
 
 
 def _run_block_processor(*lines: str) -> list[str]:

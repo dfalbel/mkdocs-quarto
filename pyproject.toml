@@ -1,5 +1,5 @@
 [project]
-name = "markdown-quarto"
+name = "mkdocs-quarto"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -15,10 +15,10 @@ dependencies = [
 ]
 
 [project.entry-points."markdown.extensions"]
-markdown_quarto = "markdown_quarto.extension:QuartoExtension"
+markdown_quarto = "mkdocs_quarto.extension:QuartoExtension"
 
 [project.entry-points."mkdocs.plugins"]
-mkdocs_quarto = "markdown_quarto.mkdocs:QuartoPlugin"
+mkdocs_quarto = "mkdocs_quarto.mkdocs:QuartoPlugin"
 
 [build-system]
 requires = ["uv_build>=0.8.0,<0.9"]
