@@ -16,6 +16,8 @@ for i in range(5):
 ## Make a plot
 
 ```{python}
+#| label: fig-plot
+#| fig-cap: "A simple sine wave plot"
 import matplotlib.pyplot as plt
 import numpy as np
 x = np.linspace(0, 10, 100)

@@ -13,11 +13,33 @@ import subprocess
 
 
 class QuartoPluginConfig(Config):
-    foo = config_options.Type(str, default="a default value")
+    """
+    Configuration options for the QuartoPlugin.
+    """
+    output_format = config_options.Type(str, default="markdown_strict+fenced_code_blocks+fenced_code_attributes")
 
 
 class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
-    def on_files(self, files: Files, config):
+    """
+    A MkDocs plugin to process Quarto `.qmd` and `.ipynb` files.
+
+    With this plugin enabled, you can include Quarto files in your MkDocs
+    documentation. The plugin will convert `.qmd` and `.ipynb` to markdown
+    before further processing.
+    
+    Quarto must be installed and available in the system PATH for this plugin
+    to work.
+
+    Limitations:
+    
+    - Each quarto document is rendered in isolation. Meaning that cross-references between
+        documents will not work as expected.
+    - Many quarto features related to theming, page-layout and navigation are not applicable.
+        MkDocs has its own theming system and navigation structure.
+    - You'll use Quarto to execute code and generate markdown output, but MkDocs will handle
+        the final rendering to HTML.
+    """
+    def on_files(self, files: Files, config: QuartoPluginConfig):
         for file in files:
             if _is_quarto_page(file.src_uri):
                 file.dest_uri = Path(file.dest_uri).stem + ".html"
@@ -39,8 +61,6 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
             input_path = tmpdir_path / (posixpath.basename(page.file.src_uri) + ".qmd")
             output_path = tmpdir_path / Path(page.file.name).stem
 
-            print(markdown)
-
             input_path.write_text(markdown, encoding="utf-8", newline="\n")
 
             previous_cwd = Path.cwd()
@@ -48,13 +68,14 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
                 os.chdir(tmpdir_path)
                 quarto.render(
                     input_path.name,
-                    output_format="gfm",
+                    output_format=self.config["output_format"],
                     output_file=output_path.name,
                 )
             finally:
                 os.chdir(previous_cwd)
 
             markdown = output_path.read_text(encoding="utf-8")
+            print(markdown)
 
             # quarto may produce extra figures, etc within the tmpdir
             # we must copy and add those files to the mkdocs files collection
