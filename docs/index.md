@@ -1,0 +1,9 @@
+---
+title: My Project Documentation
+---
+
+# Quarto Markdown
+
+## ::: mkdocs_quarto.mkdocs.QuartoPlugin
+   options:
+    docstring_style: numpy

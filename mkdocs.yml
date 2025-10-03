@@ -4,9 +4,16 @@ site_dir: site
 theme: material
 
 plugins:
+- mkdocstrings:
+    handlers:
+          python:
+            paths: [src]  # search packages in the src folder
+            options:
+              docstring_section_style: list
 - mkdocs_quarto
 
 markdown_extensions:
+- mkdocs_quarto
 - pymdownx.arithmatex:
       generic: true
 

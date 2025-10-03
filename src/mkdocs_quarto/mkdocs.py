@@ -21,6 +21,7 @@ class QuartoPluginConfig(Config):
 
 class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
     """
+    ~~qmd~~
     A MkDocs plugin to process Quarto `.qmd` and `.ipynb` files.
 
     With this plugin enabled, you can include Quarto files in your MkDocs
@@ -38,6 +39,10 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
         MkDocs has its own theming system and navigation structure.
     - You'll use Quarto to execute code and generate markdown output, but MkDocs will handle
         the final rendering to HTML.
+
+    ```{python}
+    print(1 + 1)
+    ```
     """
     def on_files(self, files: Files, config: QuartoPluginConfig):
         for file in files:
@@ -75,7 +80,6 @@ class QuartoPlugin(BasePlugin[QuartoPluginConfig]):
                 os.chdir(previous_cwd)
 
             markdown = output_path.read_text(encoding="utf-8")
-            print(markdown)
 
             # quarto may produce extra figures, etc within the tmpdir
             # we must copy and add those files to the mkdocs files collection
@@ -129,5 +133,4 @@ def _quarto_convert(src_uri: str) -> str:
             os.chdir(previous_cwd)
 
         markdown = output_path.read_text(encoding="utf-8")
-        print(markdown)
         return markdown

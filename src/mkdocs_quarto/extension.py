@@ -17,7 +17,10 @@ class QuartoExtension(Extension):
 
 class QuartoPreprocessor(Preprocessor):
     def run(self, lines: list[str]) -> list[str]:
-        return quarto_render_markdown(lines)
+        if lines[0] == "~~qmd~~":
+            return quarto_render_markdown(lines[1:])
+        else:
+            return lines
 
 
 def quarto_render_markdown(md: list[str]) -> list[str]:
@@ -37,11 +40,12 @@ def quarto_render_markdown(md: list[str]) -> list[str]:
             os.chdir(tmpdir_path)
             quarto.render(
                 input_path.name,
-                output_format="gfm",
+                output_format="markdown_strict",
                 output_file=output_path.name,
             )
         finally:
             os.chdir(previous_cwd)
 
         rendered_text = output_path.read_text(encoding="utf-8")
+        print(md)
         return rendered_text.splitlines()

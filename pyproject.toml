@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.entry-points."markdown.extensions"]
-markdown_quarto = "mkdocs_quarto.extension:QuartoExtension"
+mkdocs_quarto = "mkdocs_quarto.extension:QuartoExtension"
 
 [project.entry-points."mkdocs.plugins"]
 mkdocs_quarto = "mkdocs_quarto.mkdocs:QuartoPlugin"
